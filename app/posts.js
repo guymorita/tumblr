@@ -20,6 +20,7 @@ export default class Posts extends Component {
       try {
         let response = await fetch('https://api.tumblr.com/v2/blog/xkcn.info/posts/photo?api_key=Q6vHoaVm5L1u2ZAW1fqv3Jw48gFzYVg9P0vH0VHl3GVy6quoGV')
         let responseJson = await response.json()
+        console.log('responseJson', responseJson)
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(responseJson.response.posts)
         })
@@ -29,7 +30,8 @@ export default class Posts extends Component {
     }
 
     componentDidMount() {
-      this.getMoviesFromApi()
+      console.log('mounting')
+      this.getMoviesFromApi().done()
     }
 
     render() {
@@ -37,8 +39,8 @@ export default class Posts extends Component {
         <ListView
           dataSource={this.state.dataSource}
           renderRow={(rowData) => {
-            <Text>{rowData}</Text>
-          }
+            <Text>{rowData.summary}</Text>
+          }}
         />
       );
     }
